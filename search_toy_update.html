@@ -1,0 +1,163 @@
+ <div  id="childheader" >
+ <div class="modal-header">
+ <button type="button" class="close" ng-click="test($event)"> X</button>
+    <h3 class="modal-title">Search Toy</h3>
+</div>
+<style>
+	.modal-content{width: 120% !important;  margin-left: -11%; !important; }
+	.td_text{ padding-top: 13px; padding-bottom: 0px;}
+	.multiselect-container>li>a>label>input[type=checkbox]{margin-left:20px; }
+	.dropdown-menu
+	{
+		padding-top: 10px;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 15px;
+	}
+	.multiselect-container>li {
+		padding-bottom: 35px;
+	}
+	.btn-group, .btn-group-vertical {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-top: 3px;
+	}
+	.select_brand{
+		font-size: 1em;
+		padding: 0.9em 1em;
+		width: 100%;
+		color: #000;
+		outline: none;
+		border: 1px solid #E2DCDC;
+		background: #FFFFFF;
+		margin: 0em 0em 1em 0em;
+	}
+	.wrapper 
+	{
+		/*border:1px solid #000;*/
+		display:inline-block;
+		position:relative;
+		width:100%;
+	}
+	button 
+	{
+		background:none transparent;
+		border:0;
+	}
+	
+	.btn_user 
+	{
+		position: absolute;
+		right: 0;
+		top: 0;
+		background:#c6178d;
+		height: 47px;
+		width: 12%;
+	}
+	
+	/*input {
+		padding-right:30px;
+	}*/
+	.text_area
+	{
+		font-size: 1em;
+		padding: 0.9em 1em;
+		width: 100%;
+		color: #000;
+		outline: none;
+		border: 1px solid #E2DCDC;
+		background: #FFFFFF;
+		margin: 0em 0em 1em 0em;
+		height:48px;
+	}	
+	</style>
+
+	<div ng-app='toysearch' ng-controller="toylisting" class="modal-body">
+	   <table class="table" width="100%" border="0">
+			<tr style="background:none;">
+				<td align="left" width="30%"><h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Search For:</h3>
+					<select ng-model="searchtype" type="text" name="ddl_searchtype" id="ddl_searchtype" class="select_brand">
+						<option>--Select--</option>
+						<option value ="toy_name">Toy Name </option> 
+						<option value ="toy_code">Toy Code</option>
+						<option value ="points">Toy point</option>
+						<option value ="points_btw">Toy point Between (e.g 10,30)</option>
+						<option value ="nottakenforrent">Toy Not taken for rent</option>
+					</select>
+				</td>
+				<td align="left" width="30%">
+					<h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Search Value;</h3>
+					<div class="wrapper">
+						<input type="text" ng-model="search_value" name="txt_search_value" id="txt_search_value" required="true"  style="margin-bottom:0;" class="text_area" />
+						<!--<a class="search_popup" href="search_customer.php"> -->
+						<button class="btn_user" ng-click="addquery()" style="color:#fff; width:20%; font-weight:bold">Add</button><!--</a>-->
+					</div>
+					<!--<h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Search Value;</h3>
+					<input type="text" ng-model="search_value" name="txt_search_value" id="txt_search_value" required="true" style="margin-bottom:0; background:#FFFFCC"   />
+					<button class="" ng-click="addquery();">Add</button>-->
+				</td>
+			</tr>
+		</table>
+		<table class="table" width="100%" border="0" style="margin-top:-30px;">
+			<tr style="background:none">
+				<td align="left" width="80%">
+					<h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Query  :</h3>
+					<textarea ng-model="txtquery" id="txtquery" name ="txtquery" class="text_area" readonly="readonly" style="background:#f1f1f1;height: 99px;margin-bottom: -20px;"></textarea>
+				</td>
+				<td align="left" width="20%">
+					<h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">&nbsp;</h3>
+					<a class="search_popup" ng-click="toyList()"> 
+						<div class="wrapper" style="margin-bottom:22px">
+							<button class="btn_user" ng-click="toyList()" style="color:#fff; width:110%; font-weight:bold;">Search</button>
+						</div>
+					</a>
+					<div class="wrapper">
+						<button class="btn_user" ng-click="clear()"   style="color:#fff;width:110%;font-weight:bold;margin-top: 30px;">Reset</button>
+					</div>
+				</td>
+			</tr>
+			</table>
+			<table style="margin-left: 14px; width: 97.5%;">
+				<thead>
+					<tr style="background:#c6178d; color:#fff;">
+						<th style="padding:20px"></th>
+						<th>Toy Code</th>
+						<th>Toy Name</th>
+						<th>Image</th>
+						<th>Toy Points</th>
+						<th ng-show="false">Toy rent_amount</th>
+								<th ng-show="false">Toy selling_amount</th>
+						<th>Toy Category</th>
+						<th>Toy Age-Group</th>
+						<th>Toy Brands</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-show="x.length!=0" ng-repeat="x in data">
+						<td><button ng-click="select(x,x.toy_id)" class="btn_add">Select</button></td>
+						<td>{{x.toy_code}}</td>
+						<td>{{x.toy_name}}</td>
+						<td><img ng-src="{{x.image_path}}" height="200" width="200" /></td>
+						<td>{{x.points}}</td>
+						<td ng-show="false">{{x.rent_amount}}</td>
+								<td ng-show="false">{{x.selling_amount}}</td>
+						<td>{{x.current_points}}</td>
+						<td>{{x.email_id}}</td>
+						<td>{{x.brand_name}}</td>
+					</tr>
+					<tr>
+						<td ng-show="x.length==0">No record found...</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</div>
+
+<div class="modal-footer222">
+    <button class="btn btn-primary" ng-click="test()">OK</button>
+    <button class="btn btn-warning" data-dismiss="modal" ng-click="cancel()">Cancel</button>
+</div>
+</div>
+	     <script src="js/app/searchtoy.js"></script>

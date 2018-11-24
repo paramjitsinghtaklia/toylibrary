@@ -1,0 +1,139 @@
+ <div  id="childheader" >
+ <div  class="modal-header">
+    <h3 class="modal-title">Order Details</h3>
+</div>
+<style>
+	.modal-content{width: 120% !important;  margin-left: -11%; !important; }
+	.td_text{ padding-top: 13px; padding-bottom: 0px;}
+	.multiselect-container>li>a>label>input[type=checkbox]{margin-left:20px; }
+	.dropdown-menu
+	{
+		padding-top: 10px;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 15px;
+	}
+	.multiselect-container>li {
+		padding-bottom: 35px;
+	}
+	.btn-group, .btn-group-vertical {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-top: 3px;
+	}
+	.select_brand{
+		font-size: 1em;
+		padding: 0.9em 1em;
+		width: 100%;
+		color: #000;
+		outline: none;
+		border: 1px solid #E2DCDC;
+		background: #FFFFFF;
+		margin: 0em 0em 1em 0em;
+	}
+	.wrapper 
+	{
+		/*border:1px solid #000;*/
+		display:inline-block;
+		position:relative;
+		width:100%;
+	}
+	button 
+	{
+		background:none transparent;
+		border:0;
+	}
+	
+	.btn_user 
+	{
+		/*position: absolute;*/
+		right: 0;
+		top: 0;
+		background:#c6178d;
+		height: 47px;
+		/*width: 12%;*/
+	}
+	
+	/*input {
+		padding-right:30px;
+	}*/
+	.text_area
+	{
+		font-size: 1em;
+		padding: 0.9em 1em;
+		width: 100%;
+		color: #000;
+		outline: none;
+		border: 1px solid #E2DCDC;
+		background: #FFFFFF;
+		margin: 0em 0em 1em 0em;
+		height:48px;
+	}	
+	</style>
+
+	<div  id="childcontent" ng-app='order_status' ng-controller="orderlisting" class="modal-body">
+	   <table class="table" width="100%" border="0">
+			<tr style="background:none;">
+				<td colspan="1" align="left" width="40%"><h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Selected Order has been overdue by: {{rdays}} days
+					</h3>
+				</td>
+				<!--<td >Extra Points to be deducted</td>
+				<td >
+				<input type="textbox" id="points_deducted" name="points_deducted" >
+				</td>-->
+				<td >
+				</td>
+				<td >
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+				<table width="100%">
+						<thead>
+							<tr style="background:#c6178d; color:#fff;">
+							<th></th>
+								<th>Toy ID.</th>
+								<th>Toy Code</th>
+								<th>Toy Name</th>
+								<th>Toy Points</th>
+								<th>Comments</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr ng-show="x.length!=0" ng-repeat="x in toylist">
+						<td><input type="checkbox" data-ng-value="1" data-ng-model="x.selected"></td>
+						<td>{{x.toy_id}}</td>
+						<td>{{x.toy_code}}</td>
+						<td>{{x.toy_name}}</td>
+						<td>{{x.points}}</td>
+						<td> <textarea data-ng-model="x.comments" cols="30" rows="4">{{x.comments}}</textarea></td>
+						</tr>
+								
+						</tbody>
+						</table>
+
+				</td>
+			</tr>
+			<tr style="background:none;">
+				<td></td>
+				<!--<td>
+				<input ng-model="$root.deductamount" ng-true-value="true" ng-false-value="false" type="checkbox" name="deduct">Deduct extra points from Customer
+				</td>-->
+				<td  style="width: 30%;">
+				<button class="btn_user" ng-click="partial_save()" style="color:#fff; width:110%; font-weight:bold;">Return Selected Toys </button>
+				</td>
+				<td colspan="1">
+				<button class="btn_user" ng-click="cancel()" style="color:#fff; width:80%; font-weight:bold;">Cancel </button> 
+				</td>
+				
+
+			</tr>
+		</table>
+	
+			
+		</div>
+</div>
+
+</div>
+	     <script src="js/app/order_status.js"></script>
