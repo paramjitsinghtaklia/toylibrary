@@ -48,7 +48,7 @@ $result_data = $objExpense->getExpenseamount();
 			foreach ($result_data as  $value )
 			{
 				$expense_id = $value->expense_id;
-				echo '<tr><td>'.$x.'</td>';
+				echo '<tr><td>'.$x.'</td><td>';
 				// echo '<td>'.$value->expense_type.'</td>';
 								if ($value->expense_type =="1")
 									echo 'Food Allowance';
@@ -68,9 +68,9 @@ $result_data = $objExpense->getExpenseamount();
 									echo 'Travelling Allowance';
 								else if ($value->expense_type =="9")
 									echo 'Other';
-
+				echo "</td>";
 				echo '<td>'.$value->amount.'</td>';
-				echo '<td>'.$value->description.'</td>';
+				echo '<td>'.$value->desc.'</td>';
 				echo '<td>'.$value->expense_date.'</td>';
 				echo '<td>'.$value->created_date.'</td>';
 				echo '<td><a href="edit_expense.php?expense_edit_id='.$expense_id.'"><button class="btn_edit">Edit</button></a>&nbsp;<button class="btn_delete">Delete</button></td></tr>';

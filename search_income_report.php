@@ -98,6 +98,7 @@
 							<td align="left"><h3 style="margin-top: -18px;font-weight:bold;margin-bottom: 13px;">Income Source Type :</h3>
 								<select name="income_type" required="true" id="income_type" class="select_brand" >
 									<option value="">--- Select Source Type---</option>
+									<option value="0">All</option>
 									<option value="1">Plan Amount</option>
 									<option value="2">Registration Amount</option>
 									<option value="3">Deposit Amount</option>
@@ -137,8 +138,9 @@
 				<th>Sr.No.</th>
 				<th>Income Type </th>
 				<th>Income Amount</th>
+				<th>Description</th>
 				<th>Created Date</th>
-				<th>Actions</th>
+				
 			</tr>
 		</thead>
 	<tbody>
@@ -176,8 +178,9 @@ if ($_SERVER['REQUEST_METHOD']=="POST")
 
 				//echo '<td>'.$value->income_source_type.'</td>';
 				echo '<td>'.$value->income_amount.'</td>';
-				echo '<td>'.$value->description.'</td>';
+					echo '<td>'.$value->description.'</td>';
 				echo '<td>'.$value->created_date.'</td>';
+			
 				if ($value->income_amount<>'')
 					$total_amount = $total_amount + $value->income_amount;
 				$x++;

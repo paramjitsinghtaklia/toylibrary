@@ -110,15 +110,32 @@ class income
 		{
 			
 			if ($from_date==''&& $end_date=='')
-				$sql = "SELECT * FROM income WHERE income_source_type=".$income_source_type;		
+			{
+
+				if ($income_source_type=="0")
+				{
+					$sql = "SELECT * FROM income";
+				}
+				else
+				{
+					$sql = "SELECT * FROM income WHERE income_source_type=".$income_source_type;
+				}		
+			
+			}
 			else
 			{
 				$arr_fromdate = explode('-', $from_date);
 				$arr_todate = explode('-', $end_date);
 				$fromdate_new = new DateTime($arr_fromdate[2]."-".$arr_fromdate[1]."-".$arr_fromdate[0]);
 				$enddate_new = new DateTime($arr_todate[2]."-".$arr_todate[1]."-".$arr_todate[0]);
-
-				$sql = "SELECT * FROM income WHERE income_source_type=".$income_source_type." and date(created_date)>='".$fromdate_new->format('Y-m-d')."' and date(created_date)<='".$enddate_new->format('Y-m-d')."'";
+				if ($income_source_type=="0")
+				{
+					$sql = "SELECT * FROM income  where date(created_date)>='".$fromdate_new->format('Y-m-d')."' and date(created_date)<='".$enddate_new->format('Y-m-d')."'";
+				}
+				else
+				{
+					$sql = "SELECT * FROM income WHERE income_source_type=".$income_source_type." and date(created_date)>='".$fromdate_new->format('Y-m-d')."' and date(created_date)<='".$enddate_new->format('Y-m-d')."'";
+				}
 			}
 
 			$query = DB::prepare($sql);

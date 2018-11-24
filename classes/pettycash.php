@@ -1,7 +1,5 @@
 <?php
-
 require_once 'dbconfig.php';
-
 //this class is for toy related modules/pages
 
 class pettycash
@@ -14,17 +12,21 @@ class pettycash
 					peticash_date,
 					created_date,
 					description,
-					created_by) 
+					created_by,
+					currently_active,
+					current_amount) 
 				VALUES(
 					:pettycash_amont,
 					:modified_date,
 					:created_date,
 					:pettycash_desc,
-					:created_by)";
-
+					:created_by,
+					:currently_active,
+					:current_amount)";
+		// echo $sql;
 		$input_toy['default_zero'] = '0';
-		$today_date= date('Y/m/d H:i:s');
-
+		$active = 1 ;
+		$today_date = date('Y/m/d H:i:s');
 		$user_id = $_SESSION["user_id"];
 		$query = DB::prepare($sql);
 		$query->bindParam(':pettycash_amont',$input_pettycash['txt_pettycash_amt'],PDO::PARAM_STR);
@@ -32,6 +34,9 @@ class pettycash
 		$query->bindParam(':modified_date',$today_date,PDO::PARAM_STR);
 		$query->bindParam(':created_date',$today_date,PDO::PARAM_STR);
 		$query->bindParam(':created_by',$user_id,PDO::PARAM_INT);
+		$query->bindParam(':currently_active',$active,PDO::PARAM_INT);
+		$query->bindParam(':current_amount',$input_pettycash['txt_pettycash_amt'],PDO::PARAM_INT);
+		
 		$query->execute();
 
 		if($query->rowCount() > 0)
